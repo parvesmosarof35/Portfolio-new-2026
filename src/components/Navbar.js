@@ -34,9 +34,9 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900 dark:text-white group" suppressHydrationWarning={true}>
             <span className="bg-gradient-to-r from-purple-500 to-indigo-500 text-transparent bg-clip-text font-black group-hover:opacity-80 transition-opacity">
-              &lt;A/&gt;
+              &lt;P/&gt;
             </span>
-            <span className="hover:text-purple-500 transition-colors">Parves</span>
+            <span className="hover:text-purple-500 transition-colors">Parves Mosarof</span>
           </Link>
 
           {/* Desktop Navigation Links */}

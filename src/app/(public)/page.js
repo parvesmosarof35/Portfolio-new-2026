@@ -179,7 +179,13 @@ const Home = () => {
                           .split(",")
                           .map((r) => r.trim())
                           .filter(Boolean)
-                      : ["Senior Full-Stack Developer"]
+                      : [
+                          "Full-Stack Developer",
+                          "React Native Developer",
+                          "DevOps Expert",
+                          "Software Engineer",
+                          "MERN Stack Developer",
+                        ]
                   }
                 />
               </h2>
