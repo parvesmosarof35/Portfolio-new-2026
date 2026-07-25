@@ -36,7 +36,7 @@ const Navbar = () => {
             <span className="bg-gradient-to-r from-purple-500 to-indigo-500 text-transparent bg-clip-text font-black group-hover:opacity-80 transition-opacity">
               &lt;A/&gt;
             </span>
-            <span className="hover:text-purple-500 transition-colors">Hasan</span>
+            <span className="hover:text-purple-500 transition-colors">Parves</span>
           </Link>
 
           {/* Desktop Navigation Links */}
