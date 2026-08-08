@@ -209,7 +209,7 @@ const ManageProfile = () => {
             </div>
             <div className="space-y-1">
               <label className="font-bold text-slate-500 dark:text-slate-400">
-                Professional Title
+                Professional Titles (Comma separated)
               </label>
               <input
                 type="text"
@@ -217,6 +217,7 @@ const ManageProfile = () => {
                 value={profile.title}
                 onChange={handleInputChange}
                 required
+                placeholder="e.g. Full-Stack Developer, DevOps Expert"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-550/5 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:bg-white dark:focus:bg-slate-900"
               />
             </div>
