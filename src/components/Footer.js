@@ -28,7 +28,7 @@ const Footer = () => {
           {/* Logo & Info */}
           <div className="text-center md:text-left">
             <span className="font-bold text-lg text-slate-800 dark:text-white">
-              Ahteshamul
+              {profile?.name || "Portfolio"}
             </span>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               Building responsive, high-performance web products.
@@ -90,7 +90,7 @@ const Footer = () => {
           {/* Quick links & Back to Top */}
           <div className="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
             <span>
-              &copy; {new Date().getFullYear()} Ahteshamul. All rights reserved.
+              &copy; {new Date().getFullYear()} {profile?.name || "Portfolio"}. All rights reserved.
             </span>
 
             <button

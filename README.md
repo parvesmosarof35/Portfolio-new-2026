@@ -55,7 +55,7 @@ Ensure you have [Node.js](https://nodejs.org/) installed (version 18.x or higher
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Ahteshamull/Portfolio.git
+   git clone https://github.com/<your-username>/Portfolio.git
    cd Portfolio/Frontend
    ```
 
