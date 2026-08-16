@@ -412,7 +412,10 @@ const ManageProjects = () => {
               {/* Images Array Field (comma-separated URLs) */}
               <div className="space-y-1">
                 <div className="flex justify-between items-center">
-                  <label className="font-bold text-slate-500 dark:text-slate-400">Showcase Image Gallery</label>
+                  <div>
+                    <label className="font-bold text-slate-500 dark:text-slate-400">Showcase Image Gallery</label>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500">Image #1 will automatically be used as the Main Cover Image.</p>
+                  </div>
                   <label className="cursor-pointer text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-500/10 hover:bg-purple-500/20 px-3 py-1 rounded-full transition-colors flex items-center gap-1">
                     {isUploading ? (
                       <span className="animate-pulse">Uploading...</span>
@@ -431,28 +434,91 @@ const ManageProjects = () => {
                     )}
                   </label>
                 </div>
-                {/* Visual Preview instead of textarea */}
+                {/* Visual Preview with Ordering & Main Cover Controls */}
                 <div className="flex flex-wrap gap-3 pt-2">
-                  {formData.imagesString ? formData.imagesString.split(',').map((url, idx) => {
-                    const trimmedUrl = url.trim();
-                    if (!trimmedUrl) return null;
-                    return (
-                      <div key={idx} className="relative group rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 w-24 h-24 bg-slate-100 dark:bg-slate-900">
-                        <img src={trimmedUrl} alt={`Upload ${idx}`} className="w-full h-full object-cover" />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const newImages = formData.imagesString.split(',').map(u => u.trim()).filter(u => u && u !== trimmedUrl).join(', ');
-                            setFormData(prev => ({ ...prev, imagesString: newImages }));
-                          }}
-                          className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <Trash2 size={20} className="text-red-400 mb-1" />
-                          <span className="text-[10px] text-white font-semibold uppercase tracking-wider">Remove</span>
-                        </button>
+                  {formData.imagesString ? (() => {
+                    const imgList = formData.imagesString.split(',').map(u => u.trim()).filter(Boolean);
+                    if (imgList.length === 0) return null;
+                    return imgList.map((url, idx) => (
+                      <div key={idx} className="relative group rounded-xl overflow-hidden border-2 border-slate-200 dark:border-slate-800 w-28 h-28 bg-slate-100 dark:bg-slate-900 shadow-sm">
+                        <img src={url} alt={`Upload ${idx + 1}`} className="w-full h-full object-cover" />
+                        
+                        {/* Number Badge */}
+                        <span className={`absolute top-1.5 left-1.5 text-[10px] font-black px-2 py-0.5 rounded-md shadow-md z-10 ${
+                          idx === 0 
+                            ? 'bg-amber-500 text-white' 
+                            : 'bg-slate-900/80 text-white border border-slate-700'
+                        }`}>
+                          {idx === 0 ? '★ Cover (#1)' : `#${idx + 1}`}
+                        </span>
+
+                        {/* Control Overlay */}
+                        <div className="absolute inset-0 bg-slate-950/75 flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity p-1 z-20">
+                          {idx > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const list = [...imgList];
+                                const [target] = list.splice(idx, 1);
+                                list.unshift(target);
+                                setFormData(prev => ({ ...prev, imagesString: list.join(', ') }));
+                              }}
+                              className="text-[9px] font-extrabold px-2 py-1 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 transition-colors w-full text-center"
+                            >
+                              Make Cover (#1)
+                            </button>
+                          )}
+
+                          <div className="flex items-center gap-1">
+                            {idx > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const list = [...imgList];
+                                  const temp = list[idx];
+                                  list[idx] = list[idx - 1];
+                                  list[idx - 1] = temp;
+                                  setFormData(prev => ({ ...prev, imagesString: list.join(', ') }));
+                                }}
+                                className="px-2 py-1 text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-white rounded"
+                                title="Move Left"
+                              >
+                                ←
+                              </button>
+                            )}
+
+                            {idx < imgList.length - 1 && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const list = [...imgList];
+                                  const temp = list[idx];
+                                  list[idx] = list[idx + 1];
+                                  list[idx + 1] = temp;
+                                  setFormData(prev => ({ ...prev, imagesString: list.join(', ') }));
+                                }}
+                                className="px-2 py-1 text-[10px] font-bold bg-slate-800 hover:bg-slate-700 text-white rounded"
+                                title="Move Right"
+                              >
+                                →
+                              </button>
+                            )}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const list = imgList.filter((_, i) => i !== idx);
+                              setFormData(prev => ({ ...prev, imagesString: list.join(', ') }));
+                            }}
+                            className="flex items-center gap-1 text-[9px] font-bold text-red-400 hover:text-red-300 transition-colors"
+                          >
+                            <Trash2 size={12} /> Remove
+                          </button>
+                        </div>
                       </div>
-                    );
-                  }) : (
+                    ));
+                  })() : (
                     <div className="w-full py-8 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl flex flex-col items-center justify-center text-slate-400">
                       <p className="text-sm">No images uploaded yet</p>
                       <p className="text-xs mt-1">Click "Upload Images" to add to gallery</p>

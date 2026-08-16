@@ -114,10 +114,10 @@ const ManageServices = () => {
       </div>
 
       {/* Services List Table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left text-slate-500 dark:text-slate-400">
-            <thead className="text-[10px] uppercase font-bold text-slate-450 dark:text-slate-500 bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80">
+          <table className="w-full text-xs text-left text-slate-700 dark:text-slate-300">
+            <thead className="text-[11px] uppercase font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="px-6 py-4">Service</th>
                 <th className="px-6 py-4">Description</th>
@@ -125,10 +125,10 @@ const ManageServices = () => {
                 <th className="px-6 py-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-850">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
               {services.map((service) => (
-                <tr key={service.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-850/40 transition-colors">
-                  <td className="px-6 py-4 font-bold text-slate-800 dark:text-slate-255">
+                <tr key={service.id || service._id} className="hover:bg-slate-50 dark:hover:bg-slate-850/60 transition-colors">
+                  <td className="px-6 py-4 font-bold text-slate-900 dark:text-white">
                     <div className="flex items-center gap-2.5">
                       <div className="p-2 rounded bg-purple-500/10 dark:bg-purple-500/20 shrink-0">
                         {renderIcon(service.iconName)}
@@ -136,27 +136,27 @@ const ManageServices = () => {
                       <span>{service.title}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 max-w-sm truncate text-slate-500 dark:text-slate-400">
+                  <td className="px-6 py-4 max-w-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                     {service.description}
                   </td>
-                  <td className="px-6 py-4 font-semibold text-slate-700 dark:text-slate-350">
+                  <td className="px-6 py-4 font-bold text-purple-700 dark:text-purple-400">
                     {service.price}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-2">
                       <button
                         onClick={() => openEditModal(service)}
-                        className="p-1.5 rounded-lg text-slate-450 hover:text-purple-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                        className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-950/40 transition-colors cursor-pointer"
                         title="Edit Service"
                       >
-                        <Edit2 size={14} />
+                        <Edit2 size={15} />
                       </button>
                       <button
-                        onClick={() => handleDelete(service.id)}
-                        className="p-1.5 rounded-lg text-slate-450 hover:text-red-650 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                        onClick={() => handleDelete(service.id || service._id)}
+                        className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors cursor-pointer"
                         title="Delete Service"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={15} />
                       </button>
                     </div>
                   </td>
