@@ -24,7 +24,11 @@ export async function generateMetadata() {
       const profile = data?.data || data;
       return {
         title: `${profile?.name || "Portfolio"} | Full-Stack Developer`,
-        description: profile?.bio || "Dynamic professional developer portfolio showcasing full-stack capabilities, premium admin dashboards, and custom backend systems.",
+        description: profile?.shortBio || profile?.aboutMe || "Dynamic professional developer portfolio showcasing full-stack capabilities, premium admin dashboards, and custom backend systems.",
+        icons: {
+          icon: "/icon.png",
+          apple: "/icon.png",
+        },
       };
     }
   } catch (error) {
@@ -34,6 +38,10 @@ export async function generateMetadata() {
   return {
     title: "Portfolio | Full-Stack Developer",
     description: "Dynamic professional developer portfolio showcasing full-stack capabilities, premium admin dashboards, and custom backend systems.",
+    icons: {
+      icon: "/icon.png",
+      apple: "/icon.png",
+    },
   };
 }
 
