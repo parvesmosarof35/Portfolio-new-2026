@@ -97,6 +97,7 @@ const ProjectDetails = async ({ params }) => {
           images={project.images}
           defaultImageUrl={project.imageUrl}
           title={project.title}
+          videoUrl={project.videoUrl}
         />
 
         {/* Project Body Layout */}

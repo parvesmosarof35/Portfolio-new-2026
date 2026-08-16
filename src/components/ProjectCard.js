@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ExternalLink, Monitor, Briefcase, FileCode } from 'lucide-react';
+import { ExternalLink, Monitor, Briefcase, FileCode, Video } from 'lucide-react';
 import { Github } from './BrandIcons';
 
 import { optimizeImage } from '@/lib/optimizeImage';
 
 const ProjectCard = ({ project }) => {
-  const { title, description, type, category, techStack, liveUrl, githubUrl, imageUrl, status } = project;
+  const { title, description, type, category, techStack, liveUrl, githubUrl, imageUrl, videoUrl, status } = project;
 
   return (
     <div className="group relative flex flex-col rounded-2xl border border-slate-200/50 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md overflow-hidden hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 transition-all duration-500 hover:-translate-y-1">
@@ -55,6 +55,13 @@ const ProjectCard = ({ project }) => {
           <span className="text-[11px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-slate-900/80 dark:bg-slate-800/80 text-white border border-slate-700/50 shadow-sm">
             {category}
           </span>
+
+          {/* Video Badge */}
+          {videoUrl && (
+            <span className="flex items-center gap-1 text-[11px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-full bg-purple-600/90 text-white border border-purple-400/40 shadow-sm">
+              <Video size={11} /> Video Demo
+            </span>
+          )}
         </div>
 
         {/* Status Badge */}

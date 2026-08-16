@@ -7,7 +7,7 @@ import {
   useDeleteProjectMutation,
   useUploadFileMutation
 } from '@/store/apiSlice';
-import { Plus, Edit2, Trash2, X, ExternalLink, Monitor, Briefcase } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, ExternalLink, Monitor, Briefcase, Video } from 'lucide-react';
 import { Github } from '@/components/BrandIcons';
 import toast from 'react-hot-toast';
 
@@ -33,6 +33,7 @@ const ManageProjects = () => {
     githubBackendUrl: '',
     imageUrl: '',
     imagesString: '',
+    videoUrl: '',
     status: 'Completed',
     date: ''
   });
@@ -50,6 +51,7 @@ const ManageProjects = () => {
       githubBackendUrl: '',
       imageUrl: '',
       imagesString: '',
+      videoUrl: '',
       status: 'Completed',
       date: new Date().toISOString().substring(0, 7)
     });
@@ -69,6 +71,7 @@ const ManageProjects = () => {
       githubBackendUrl: project.githubBackendUrl || '',
       imageUrl: project.imageUrl || '',
       imagesString: project.images ? project.images.join(', ') : project.imageUrl,
+      videoUrl: project.videoUrl || '',
       status: project.status,
       date: project.date || ''
     });
@@ -132,6 +135,36 @@ const ManageProjects = () => {
     e.target.value = '';
   };
 
+  const handleVideoUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const isVideo = file.type.startsWith('video/') || file.name.toLowerCase().match(/\.(mp4|webm|ogg|mov|mkv|avi)$/);
+    if (!isVideo) {
+      toast.error(`File ${file.name} is not a valid video.`);
+      return;
+    }
+
+    if (file.size > 100 * 1024 * 1024) {
+      toast.error(`Video file ${file.name} is too large. Max size is 100MB.`);
+      return;
+    }
+
+    const formDataUpload = new FormData();
+    formDataUpload.append('file', file);
+
+    const toastId = toast.loading('Uploading video file...');
+    try {
+      const response = await uploadFile(formDataUpload).unwrap();
+      setFormData(prev => ({ ...prev, videoUrl: response.url }));
+      toast.success('Video uploaded successfully!', { id: toastId });
+    } catch (err) {
+      toast.error('Failed to upload video', { id: toastId });
+    }
+
+    e.target.value = '';
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     
@@ -158,6 +191,7 @@ const ManageProjects = () => {
       githubBackendUrl: formData.githubBackendUrl,
       imageUrl: mainImageUrl,
       images: images.length > 0 ? images : [mainImageUrl],
+      videoUrl: formData.videoUrl,
       status: formData.status,
       date: formData.date
     };
@@ -525,6 +559,64 @@ const ManageProjects = () => {
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* Project Video (Optional) */}
+              <div className="space-y-2 pt-2 border-t border-slate-200/50 dark:border-slate-800">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <label className="font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                      <Video size={14} className="text-purple-500" />
+                      Project Video Demo (Optional)
+                    </label>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500">
+                      Upload an MP4/WebM video or paste a video URL.
+                    </p>
+                  </div>
+                  <label className="cursor-pointer text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-500/10 hover:bg-purple-500/20 px-3 py-1 rounded-full transition-colors flex items-center gap-1">
+                    {isUploading ? (
+                      <span className="animate-pulse">Uploading...</span>
+                    ) : (
+                      <>
+                        <Plus size={12} /> Upload Video
+                        <input 
+                          type="file" 
+                          accept="video/*" 
+                          className="hidden" 
+                          onChange={handleVideoUpload}
+                          disabled={isUploading}
+                        />
+                      </>
+                    )}
+                  </label>
+                </div>
+
+                <input
+                  type="url"
+                  name="videoUrl"
+                  value={formData.videoUrl}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-550/5 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-purple-500 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-655 transition-colors"
+                  placeholder="https://example.com/demo.mp4 or uploaded video URL"
+                />
+
+                {formData.videoUrl && (
+                  <div className="relative mt-2 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-black max-h-48 group">
+                    <video
+                      src={formData.videoUrl}
+                      controls
+                      className="w-full max-h-48 object-contain"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, videoUrl: '' }))}
+                      className="absolute top-2 right-2 p-1.5 rounded-lg bg-red-600/90 text-white hover:bg-red-700 transition-colors shadow-md z-10"
+                      title="Remove Video"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
