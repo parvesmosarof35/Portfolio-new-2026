@@ -50,6 +50,16 @@ export const portfolioApi = createApi({
         body: profileData,
       }),
       invalidatesTags: ["Profile"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "profile" }),
+          });
+        } catch {}
+      },
     }),
 
     // Services endpoints
@@ -64,6 +74,16 @@ export const portfolioApi = createApi({
         body: serviceData,
       }),
       invalidatesTags: ["Services"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "services" }),
+          });
+        } catch {}
+      },
     }),
     updateService: builder.mutation({
       query: ({ id, ...serviceData }) => ({
@@ -72,6 +92,16 @@ export const portfolioApi = createApi({
         body: serviceData,
       }),
       invalidatesTags: ["Services"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "services" }),
+          });
+        } catch {}
+      },
     }),
     deleteService: builder.mutation({
       query: (id) => ({
@@ -79,6 +109,16 @@ export const portfolioApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Services"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "services" }),
+          });
+        } catch {}
+      },
     }),
 
     // Projects endpoints
@@ -97,6 +137,16 @@ export const portfolioApi = createApi({
         body: projectData,
       }),
       invalidatesTags: ["Projects"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "projects" }),
+          });
+        } catch {}
+      },
     }),
     updateProject: builder.mutation({
       query: ({ id, ...projectData }) => ({
@@ -105,6 +155,16 @@ export const portfolioApi = createApi({
         body: projectData,
       }),
       invalidatesTags: ["Projects"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "projects" }),
+          });
+        } catch {}
+      },
     }),
     deleteProject: builder.mutation({
       query: (id) => ({
@@ -112,6 +172,16 @@ export const portfolioApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Projects"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "projects" }),
+          });
+        } catch {}
+      },
     }),
 
     // Experiences endpoints
@@ -126,6 +196,16 @@ export const portfolioApi = createApi({
         body: experienceData,
       }),
       invalidatesTags: ["Experiences"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "experiences" }),
+          });
+        } catch {}
+      },
     }),
     updateExperience: builder.mutation({
       query: ({ id, ...experienceData }) => ({
@@ -134,6 +214,16 @@ export const portfolioApi = createApi({
         body: experienceData,
       }),
       invalidatesTags: ["Experiences"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "experiences" }),
+          });
+        } catch {}
+      },
     }),
     deleteExperience: builder.mutation({
       query: (id) => ({
@@ -141,6 +231,16 @@ export const portfolioApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Experiences"],
+      async onQueryStarted(arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          fetch("/api/revalidate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: "experiences" }),
+          });
+        } catch {}
+      },
     }),
 
     // Messages endpoints

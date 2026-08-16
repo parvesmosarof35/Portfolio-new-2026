@@ -1,127 +1,31 @@
-"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight,
   Download,
-  CheckCircle,
-  Award,
-  Briefcase,
-  Users,
   Zap,
   Eye,
   Calendar,
+  Briefcase,
 } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
+import { Typewriter, CountUp } from "@/components/ClientAnimations";
 import {
-  useGetProfileQuery,
-  useGetProjectsQuery,
-  useGetServicesQuery,
-  useGetExperiencesQuery,
-} from "@/store/apiSlice";
+  getProfile,
+  getProjects,
+  getServices,
+  getExperiences,
+} from "@/lib/getPublicData";
 
-const Typewriter = ({ texts, speed = 80, delayBetween = 2500 }) => {
-  const [currentTextIndex, setCurrentTextIndex] = React.useState(0);
-  const [currentText, setCurrentText] = React.useState("");
-  const [isDeleting, setIsDeleting] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!texts || texts.length === 0) return;
-
-    let timer;
-    const fullText = texts[currentTextIndex];
-
-    if (isDeleting) {
-      timer = setTimeout(() => {
-        setCurrentText(fullText.substring(0, currentText.length - 1));
-      }, speed / 2);
-    } else {
-      timer = setTimeout(() => {
-        setCurrentText(fullText.substring(0, currentText.length + 1));
-      }, speed);
-    }
-
-    if (!isDeleting && currentText === fullText) {
-      timer = setTimeout(() => setIsDeleting(true), delayBetween);
-    } else if (isDeleting && currentText === "") {
-      setIsDeleting(false);
-      setCurrentTextIndex((prev) => (prev + 1) % texts.length);
-    }
-
-    return () => clearTimeout(timer);
-  }, [currentText, isDeleting, currentTextIndex, texts, speed, delayBetween]);
-
-  return (
-    <span className="relative">
-      <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-indigo-550 dark:from-purple-400 dark:via-indigo-400 dark:to-indigo-300 bg-clip-text text-transparent font-extrabold">
-        {currentText}
-      </span>
-      <span className="inline-block w-[3px] h-[0.9em] bg-purple-500 dark:bg-purple-400 ml-1.5 translate-y-[1px] animate-[pulse_1s_infinite]"></span>
-    </span>
-  );
-};
-
-const parseStatValue = (value) => {
-  const stringValue = String(value || "").trim();
-  const match = stringValue.match(/^(\d+(?:\.\d+)?)(.*)$/);
-  if (!match) {
-    return { target: stringValue, suffix: "" };
-  }
-
-  return {
-    target: Number(match[1]),
-    suffix: match[2] || "",
-  };
-};
-
-const CountUp = ({ value }) => {
-  const { target, suffix } = parseStatValue(value);
-  const [displayValue, setDisplayValue] = React.useState(
-    typeof target === "number" ? 0 : value,
-  );
-
-  React.useEffect(() => {
-    if (typeof target !== "number" || Number.isNaN(target)) {
-      setDisplayValue(String(value));
-      return;
-    }
-
-    let frame = 0;
-    const duration = 1200;
-    const interval = 30;
-    const steps = Math.max(1, Math.ceil(duration / interval));
-    const increment = target / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      frame += 1;
-      current += increment;
-
-      if (frame >= steps) {
-        setDisplayValue(target);
-        clearInterval(timer);
-      } else {
-        setDisplayValue(Math.floor(current));
-      }
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [target, value]);
-
-  return (
-    <span>
-      {displayValue}
-      {typeof target === "number" ? suffix : ""}
-    </span>
-  );
-};
-
-const Home = () => {
-  const { data: profileData } = useGetProfileQuery();
-  const { data: projectsData } = useGetProjectsQuery();
-  const { data: servicesData } = useGetServicesQuery();
-  const { data: experiencesData } = useGetExperiencesQuery();
+const Home = async () => {
+  const [profileData, projectsData, servicesData, experiencesData] =
+    await Promise.all([
+      getProfile(),
+      getProjects(),
+      getServices(),
+      getExperiences(),
+    ]);
 
   const profile = profileData || {};
   const featuredProjects = (projectsData || []).slice(0, 4);
@@ -353,7 +257,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard key={project.id || project._id} project={project} />
             ))}
           </div>
         </div>
@@ -375,7 +279,7 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service) => (
               <div
-                key={service.id}
+                key={service.id || service._id}
                 className="flex flex-col p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:shadow-xl hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold mb-4">
@@ -398,7 +302,6 @@ const Home = () => {
             <Link
               href="/services"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 shadow-md transition-all cursor-pointer"
-              suppressHydrationWarning={true}
             >
               See Detailed Services
               <ArrowRight size={16} />
@@ -421,9 +324,9 @@ const Home = () => {
 
           <div className="relative border-l-2 border-slate-200 dark:border-slate-800 ml-4 sm:ml-8 space-y-10">
             {experiences.map((item) => (
-              <div key={item.id} className="relative pl-6 sm:pl-8">
+              <div key={item.id || item._id} className="relative pl-6 sm:pl-8">
                 {/* Timeline Dot */}
-                <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-purple-500 border-4 border-slate-50 dark:border-slate-950 shadow" />
+                <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-purple-500 border-4 border-slate-50 dark:border-slate-955 shadow" />
 
                 <div className="space-y-1 text-left">
                   <span className="flex items-center gap-1.5 text-xs text-purple-600 dark:text-purple-400 font-bold">
@@ -449,7 +352,6 @@ const Home = () => {
             <Link
               href="/about"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-all cursor-pointer"
-              suppressHydrationWarning={true}
             >
               Learn More About Me
               <ArrowRight size={16} />
@@ -475,7 +377,6 @@ const Home = () => {
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold bg-white text-purple-900 hover:bg-slate-100 hover:scale-102 active:scale-98 transition-all cursor-pointer shadow-xl shadow-black/25"
-              suppressHydrationWarning={true}
             >
               Start a Conversation
               <ArrowRight size={16} />

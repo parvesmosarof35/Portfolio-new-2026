@@ -1,5 +1,4 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import {
   Calendar,
@@ -9,11 +8,13 @@ import {
   Server,
   Wrench,
 } from "lucide-react";
-import { useGetProfileQuery, useGetExperiencesQuery } from "@/store/apiSlice";
+import { getProfile, getExperiences } from "@/lib/getPublicData";
 
-const About = () => {
-  const { data: profileData } = useGetProfileQuery();
-  const { data: experiencesData } = useGetExperiencesQuery();
+const About = async () => {
+  const [profileData, experiencesData] = await Promise.all([
+    getProfile(),
+    getExperiences(),
+  ]);
 
   const profile = profileData || {};
   const experience = experiencesData || [];
@@ -186,7 +187,7 @@ const About = () => {
           </h2>
           <div className="relative border-l border-slate-200 dark:border-slate-800 ml-4 space-y-8">
             {experience.map((item) => (
-              <div key={item.id} className="relative pl-6">
+              <div key={item.id || item._id} className="relative pl-6">
                 <div className="absolute -left-[6px] top-1.5 w-3 h-3 rounded-full bg-purple-500 border-2 border-slate-50 dark:border-slate-955" />
                 <div className="space-y-1">
                   <span className="flex items-center gap-1.5 text-xs text-purple-600 dark:text-purple-400 font-bold">
