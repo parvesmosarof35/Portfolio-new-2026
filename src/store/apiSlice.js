@@ -4,7 +4,7 @@ const getBaseUrl = () => {
   if (typeof window !== "undefined") {
     return (
       process.env.NEXT_PUBLIC_API_URL ||
-      "https://protfolio-backend-nbfmcj-bd5340-152-239-121-104.sslip.io/api"
+      "https://portfolio-backend-silk-eight.vercel.app/api"
     );
   }
 };
