@@ -29,7 +29,7 @@ const Footer = () => {
             <span className="font-bold text-lg text-slate-800 dark:text-white">
               {profile?.name || "Portfolio"}
             </span>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
               Building responsive, high-performance web products.
             </p>
           </div>
@@ -87,7 +87,7 @@ const Footer = () => {
           </div>
 
           {/* Quick links & Back to Top */}
-          <div className="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-6 text-sm text-slate-600 dark:text-slate-300">
             <span>
               &copy; {new Date().getFullYear()} {profile?.name || "Portfolio"}. All rights reserved.
             </span>

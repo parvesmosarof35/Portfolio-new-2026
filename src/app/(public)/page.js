@@ -95,7 +95,7 @@ const Home = async () => {
                 />
               </h2>
 
-              <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
                 {profile.shortBio}
               </p>
 

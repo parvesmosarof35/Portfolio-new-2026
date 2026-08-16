@@ -74,7 +74,7 @@ const ProjectCard = ({ project }) => {
           </h3>
         </Link>
         
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 line-clamp-3 leading-relaxed flex-1">
+        <p className="text-sm text-slate-600 dark:text-slate-300 mt-2 line-clamp-3 leading-relaxed flex-1">
           {description}
         </p>
 
