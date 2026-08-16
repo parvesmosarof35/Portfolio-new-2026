@@ -5,6 +5,7 @@ import {
   ArrowRight,
   Download,
   Zap,
+  Rocket,
   Eye,
   Calendar,
   Briefcase,
@@ -174,14 +175,14 @@ const Home = async () => {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  <span className="text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-200 tracking-wide whitespace-nowrap">
-                    ⚡ Full-Stack
+                  <span className="flex items-center gap-1 text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-200 tracking-wide whitespace-nowrap">
+                    <Zap size={13} className="text-amber-500 fill-amber-500/20" /> Full-Stack
                   </span>
                 </div>
 
                 {/* Badge 2: Bottom-Right (Creative Interactive Badge) */}
                 <div className="absolute -right-8 sm:-right-14 bottom-[20%] z-20 px-4 py-2 rounded-2xl bg-white/70 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 shadow-xl flex items-center gap-1.5 animate-[float-reverse_6s_ease-in-out_infinite] pointer-events-none">
-                  <span className="text-xs">🚀</span>
+                  <Rocket size={13} className="text-purple-500 fill-purple-500/20" />
                   <span className="text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-200 tracking-wide whitespace-nowrap">
                     Interactive Dev
                   </span>
