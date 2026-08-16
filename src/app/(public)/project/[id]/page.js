@@ -200,7 +200,18 @@ const ProjectDetails = () => {
                     className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-350 hover:text-purple-600 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 border border-slate-205 dark:border-slate-800 transition-all text-center cursor-pointer"
                   >
                     <Github size={13} />
-                    Source Repository
+                    {project.githubBackendUrl ? 'Frontend Repository' : 'Source Repository'}
+                  </a>
+                )}
+                {project.githubBackendUrl && (
+                  <a
+                    href={project.githubBackendUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-350 hover:text-purple-600 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 border border-slate-205 dark:border-slate-800 transition-all text-center cursor-pointer"
+                  >
+                    <Github size={13} />
+                    Backend Repository
                   </a>
                 )}
               </div>

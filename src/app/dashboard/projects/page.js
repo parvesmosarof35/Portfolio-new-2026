@@ -30,6 +30,7 @@ const ManageProjects = () => {
     techStackString: '',
     liveUrl: '',
     githubUrl: '',
+    githubBackendUrl: '',
     imageUrl: '',
     imagesString: '',
     status: 'Completed',
@@ -46,6 +47,7 @@ const ManageProjects = () => {
       techStackString: '',
       liveUrl: '',
       githubUrl: '',
+      githubBackendUrl: '',
       imageUrl: '',
       imagesString: '',
       status: 'Completed',
@@ -62,9 +64,10 @@ const ManageProjects = () => {
       type: project.type,
       category: project.category,
       techStackString: project.techStack.join(', '),
-      liveUrl: project.liveUrl,
-      githubUrl: project.githubUrl,
-      imageUrl: project.imageUrl,
+      liveUrl: project.liveUrl || '',
+      githubUrl: project.githubUrl || '',
+      githubBackendUrl: project.githubBackendUrl || '',
+      imageUrl: project.imageUrl || '',
       imagesString: project.images ? project.images.join(', ') : project.imageUrl,
       status: project.status,
       date: project.date || ''
@@ -152,6 +155,7 @@ const ManageProjects = () => {
       techStack,
       liveUrl: formData.liveUrl,
       githubUrl: formData.githubUrl,
+      githubBackendUrl: formData.githubBackendUrl,
       imageUrl: mainImageUrl,
       images: images.length > 0 ? images : [mainImageUrl],
       status: formData.status,
@@ -369,7 +373,7 @@ const ManageProjects = () => {
               </div>
 
               {/* Links */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-1">
                   <label className="font-bold text-slate-500 dark:text-slate-400">Live URL</label>
                   <input
@@ -382,11 +386,22 @@ const ManageProjects = () => {
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="font-bold text-slate-500 dark:text-slate-400">GitHub Repository</label>
+                  <label className="font-bold text-slate-500 dark:text-slate-400">Frontend / Main Repo</label>
                   <input
                     type="url"
                     name="githubUrl"
                     value={formData.githubUrl}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-550/5 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 focus:outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-purple-500 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-655 transition-colors"
+                    placeholder="https://github.com/..."
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-500 dark:text-slate-400">Backend Repo (Optional)</label>
+                  <input
+                    type="url"
+                    name="githubBackendUrl"
+                    value={formData.githubBackendUrl}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2.5 rounded-xl bg-slate-550/5 dark:bg-slate-955 border border-slate-200 dark:border-slate-800 focus:outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-purple-500 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-655 transition-colors"
                     placeholder="https://github.com/..."

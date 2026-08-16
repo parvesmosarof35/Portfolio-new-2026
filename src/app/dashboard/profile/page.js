@@ -26,6 +26,7 @@ const ManageProfile = () => {
     phone: "",
     whatsapp: "",
     linkedin: "",
+    facebook: "",
     github: "",
     location: "",
     resumeUrl: "",
@@ -55,6 +56,7 @@ const ManageProfile = () => {
         phone: profileData.phone || "",
         whatsapp: profileData.whatsapp || "",
         linkedin: profileData.linkedin || "",
+        facebook: profileData.facebook || "",
         github: profileData.github || "",
         location: profileData.location || "",
         resumeUrl: profileData.resumeUrl || "",
@@ -415,7 +417,7 @@ const ManageProfile = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="space-y-1">
               <label className="font-bold text-slate-500 dark:text-slate-400">
                 LinkedIn Profile Link
@@ -424,6 +426,19 @@ const ManageProfile = () => {
                 type="url"
                 name="linkedin"
                 value={profile.linkedin}
+                onChange={handleInputChange}
+                required
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-550/5 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:bg-white"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="font-bold text-slate-500 dark:text-slate-400">
+                Facebook Profile Link
+              </label>
+              <input
+                type="url"
+                name="facebook"
+                value={profile.facebook}
                 onChange={handleInputChange}
                 required
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-550/5 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:bg-white"

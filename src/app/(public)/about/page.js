@@ -77,18 +77,25 @@ const About = () => {
 
   const education = [
     {
-      degree: "B.Sc. in Computer Science & Engineering",
-      institution: "Manarat International University",
-      period: "2025 - running",
+      degree: "Bachelor of Management Studies (BMS)",
+      institution: "Dhaka College",
+      period: "2021 - 2026",
       description:
-        "Acquired a comprehensive technical foundation in core computer science paradigms, covering advanced Data Structures, Algorithm design, Relational Databases (DBMS), and Software Architecture. This intensive engineering coursework paved the way for my transition into building production-grade full-stack systems.",
+        "Completed my honors degree with a CGPA of 3.05. Gained strong analytical and management skills alongside pursuing a self-taught, intensive journey into full-stack software development.",
     },
     {
-      degree: "Diploma in Computer Engineering",
-      institution: "Sherpur polytechnic institute",
-      period: "2019 - 2023",
+      degree: "Higher Secondary Certificate (HSC)",
+      institution: "Kabi Nazrul Government College",
+      period: "2018 - 2020",
       description:
-        "Acquired a comprehensive technical foundation in core computer science paradigms, covering advanced Data Structures, Algorithm design, Relational Databases (DBMS), and Software Architecture. This intensive engineering coursework paved the way for my transition into building production-grade full-stack systems..",
+        "Successfully completed with a GPA of 4.83.",
+    },
+    {
+      degree: "Secondary School Certificate (SSC)",
+      institution: "Sobuj Biddya Pith High School",
+      period: "2016 - 2018",
+      description:
+        "Successfully completed with a GPA of 4.83.",
     },
   ];
 

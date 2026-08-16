@@ -16,8 +16,7 @@ const Footer = () => {
 
   const githubUrl = profile?.github || "#";
   const linkedinUrl = profile?.linkedin || "#";
-  const facebookUrl =
-    profile?.facebook || "https://www.facebook.com/Ah.te.sh.am.ul.h.a.s.a.ns";
+  const facebookUrl = profile?.facebook || "#";
   const whatsappUrl = profile?.whatsapp || "#";
   const emailUrl = profile?.email ? `mailto:${profile.email}` : "#";
 
