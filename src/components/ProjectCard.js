@@ -15,7 +15,12 @@ const ProjectCard = ({ project }) => {
       <div className="absolute -inset-px bg-gradient-to-r from-purple-500/0 via-purple-500/0 to-indigo-500/0 rounded-2xl group-hover:from-purple-500/10 group-hover:to-indigo-500/10 transition-all duration-700 -z-10" />
 
       {/* Image container */}
-      <Link href={`/project/${project.id}`} className="relative h-48 sm:h-52 w-full overflow-hidden block" suppressHydrationWarning={true}>
+      <Link 
+        href={`/project/${project.id}`} 
+        className="relative h-48 sm:h-52 w-full overflow-hidden block" 
+        aria-label={`View details for ${title}`}
+        suppressHydrationWarning={true}
+      >
         <Image
           src={optimizeImage(imageUrl, 600) || "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=60"}
           alt={title || 'Project'}
@@ -68,7 +73,7 @@ const ProjectCard = ({ project }) => {
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5 sm:p-6">
-        <Link href={`/project/${project.id}`} className="block group/title" suppressHydrationWarning={true}>
+        <Link href={`/project/${project.id}`} aria-label={`${title} overview`} className="block group/title" suppressHydrationWarning={true}>
           <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover/title:text-purple-500 transition-colors line-clamp-1">
             {title}
           </h3>
@@ -95,6 +100,7 @@ const ProjectCard = ({ project }) => {
         <div className="flex items-center gap-3 mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/50 text-xs">
           <Link
             href={`/project/${project.id}`}
+            aria-label={`Read case study for ${title}`}
             className="font-bold text-purple-650 hover:text-purple-550 dark:text-purple-400 dark:hover:text-purple-300 transition-colors shrink-0"
             suppressHydrationWarning={true}
           >
