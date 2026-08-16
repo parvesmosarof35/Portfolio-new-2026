@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { getProfile, getExperiences } from "@/lib/getPublicData";
 
+import { optimizeImage } from "@/lib/optimizeImage";
+
 const About = async () => {
   const [profileData, experiencesData] = await Promise.all([
     getProfile(),
@@ -109,7 +111,7 @@ const About = async () => {
             <div className="w-48 h-48 rounded-2xl overflow-hidden shadow-lg border-2 border-purple-500/20 mb-4 relative">
               {profile?.avatarUrl ? (
                 <Image
-                  src={profile.avatarUrl}
+                  src={optimizeImage(profile.avatarUrl, 500)}
                   alt={profile.name || "Avatar"}
                   fill
                   sizes="192px"

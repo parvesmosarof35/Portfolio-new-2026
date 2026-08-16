@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import ProjectCard from "@/components/ProjectCard";
 import { Typewriter, CountUp } from "@/components/ClientAnimations";
+import { optimizeImage } from "@/lib/optimizeImage";
 import {
   getProfile,
   getProjects,
@@ -190,7 +191,7 @@ const Home = async () => {
                 <div className="relative z-10 w-full h-full rounded-[2.75rem] overflow-hidden border-[6px] border-slate-50 dark:border-slate-950 shadow-2xl hover:scale-[1.03] hover:rotate-1 transition-all duration-500 group cursor-pointer bg-slate-100 dark:bg-slate-900">
                   {profile.avatarUrl ? (
                     <Image
-                      src={profile.avatarUrl}
+                      src={optimizeImage(profile.avatarUrl, 500)}
                       alt={profile.name || "Avatar"}
                       fill
                       sizes="(max-width: 640px) 256px, 320px"

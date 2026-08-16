@@ -53,6 +53,9 @@ export default function RootLayout({ children }) {
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+      </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <ReduxProvider>
           <ThemeProvider>

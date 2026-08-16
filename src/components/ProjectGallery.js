@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { optimizeImage } from "@/lib/optimizeImage";
 
 const ProjectGallery = ({ images = [], defaultImageUrl, title }) => {
   const projImages =
@@ -15,7 +16,7 @@ const ProjectGallery = ({ images = [], defaultImageUrl, title }) => {
       {/* Big Showcase Image */}
       <div className="w-full h-64 sm:h-[450px] rounded-2xl overflow-hidden shadow-lg border border-slate-200/20 bg-slate-900/5 dark:bg-slate-900/40 relative">
         <Image
-          src={activeImage}
+          src={optimizeImage(activeImage, 1000)}
           alt={title || "Project Image"}
           fill
           sizes="(max-width: 768px) 100vw, 800px"
@@ -38,7 +39,7 @@ const ProjectGallery = ({ images = [], defaultImageUrl, title }) => {
               }`}
             >
               <Image
-                src={imgUrl}
+                src={optimizeImage(imgUrl, 300)}
                 alt={`Thumbnail ${idx + 1}`}
                 fill
                 sizes="112px"
